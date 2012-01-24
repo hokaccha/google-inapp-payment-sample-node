@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>Google In-app payment sample</title>
+</head>
+<body>
+<h1><%= item.name %></h1>
+
+<h2>概要</h2>
+<p><%= item.description %></p>
+
+<h2>価格</h2>
+<p><%= item.price %><%= item.currencyCode %></p>
+
+<p><button id="buyBtn" type="button">この商品を購入</button></p>
+
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript">
+google.load('payments', '1.0', {
+  'packages': ['sandbox_config']
+});
+document.getElementById("buyBtn").addEventListener("click", function() {
+  goog.payments.inapp.buy({
+    jwt: "<%= jwt %>",
+    success : function() {
+      alert("購入が完了しました");
+    },
+    failure: function() {
+      alert("購入に失敗しました");
+    }
+  });
+}, false);
+
+</script>
+</body>
+</html>
